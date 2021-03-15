@@ -18,7 +18,7 @@ class FaceDetector:
         self.detection_graph = tf.Graph()
         self.sess = tf.compat.v1.Session(graph=self.detection_graph)
         with self.detection_graph.as_default():
-            od_graph_def = tf.GraphDef()
+            od_graph_def = tf.compat.v1.GraphDef()
             with tf.gfile.GFile(BASE_DIR + PATH_TO_CKPT, 'rb') as fid:
                 serialized_graph = fid.read()
                 od_graph_def.ParseFromString(serialized_graph)
