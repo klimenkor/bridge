@@ -71,7 +71,12 @@ class Detector:
             line_thickness=8,
             min_score_thresh=0.40)
 
-        exists = self.person_id in classes[0]
+        exists = False
+        for i in range (0,int(num[0])):
+            if classes[0][i] == self.person_id:
+                exists = True
+                break
+
         if exists:
             return frame
         else: 
