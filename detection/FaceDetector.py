@@ -22,7 +22,7 @@ class FaceDetector:
             with tf.compat.v1.gfile.GFile(BASE_DIR + PATH_TO_CKPT, 'rb') as fid:
                 serialized_graph = fid.read()
                 od_graph_def.ParseFromString(serialized_graph)
-                tf.import_graph_def(od_graph_def, name='')
+                tf..import_graph_def(od_graph_def, name='')
 
         self.image_tensor = self.detection_graph.get_tensor_by_name('image_tensor:0')
         # Each box represents a part of the image where a particular object was detected.
