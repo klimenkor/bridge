@@ -81,7 +81,7 @@ for filename in os.listdir(source):
 
         print("...loading %s" % (input_file))
         frame1 = cv2.imread(input_file, cv2.IMREAD_COLOR)
-        frame = np.copy(frame1.array)       
+        frame = np.copy(frame1)       
         frame = cv2.resize(frame, (0, 0), fx=0.4, fy=0.4)
         
         frame.setflags(write=1)
