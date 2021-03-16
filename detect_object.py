@@ -4,15 +4,6 @@ import cv2
 import numpy as np
 import tensorflow as tf
 import sys
-
-# Set up camera constants
-IM_WIDTH = 1280
-IM_HEIGHT = 720
-#IM_WIDTH = 640    Use smaller resolution for
-#IM_HEIGHT = 480   slightly faster framerate
-
-
-# Import utilites
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 
@@ -82,7 +73,7 @@ for filename in os.listdir(source):
         print("...loading %s" % (input_file))
         frame1 = cv2.imread(input_file, cv2.IMREAD_COLOR)
         frame = np.copy(frame1)       
-        frame = cv2.resize(frame, (0, 0), fx=0.4, fy=0.4)
+        frame = cv2.resize(frame, (0, 0), fx=0.2, fy=0.2)
         
         frame.setflags(write=1)
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
