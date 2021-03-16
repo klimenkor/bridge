@@ -50,6 +50,7 @@ class Detector:
 
 
     def process(self,frame):
+        frame = cv2.resize(frame, (0, 0), fx=0.2, fy=0.2)
         frame.setflags(write=1)
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         frame_expanded = np.expand_dims(frame_rgb, axis=0)
@@ -140,6 +141,7 @@ class Splitter:
 
                     ### detect a person
                     processed_frame = detector.process(frame)
+
 
                     if processed_frame is not None:
                         print("    saving original to %s" % (original_frame_file))
