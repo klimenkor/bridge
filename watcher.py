@@ -141,7 +141,7 @@ class Splitter:
                     ### detect a person
                     processed_frame = detector.process(frame)
 
-                    if resulting_frame is not None:
+                    if processed_frame is not None:
                         print("    saving original to %s" % (original_frame_file))
                         print("    saving processed to %s" % (processed_frame_file))
                         cv2.imwrite(original_frame_file, frame)
