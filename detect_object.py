@@ -93,6 +93,9 @@ for filename in os.listdir(source):
             [detection_boxes, detection_scores, detection_classes, num_detections],
             feed_dict={image_tensor: frame_expanded})
 
+        if boxes.size > 0:
+            print("...%d objects detected" % (boxes.size))
+
         # Draw the results of the detection (aka 'visulaize the results')
         vis_util.visualize_boxes_and_labels_on_image_array(
             frame,
