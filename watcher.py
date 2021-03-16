@@ -55,13 +55,9 @@ class Detector:
         frame_expanded = np.expand_dims(frame_rgb, axis=0)
 
         # Perform the actual detection by running the model with the image as input
-        (boxes, scores, classes, num) = sess.run(
+        (boxes, scores, classes, num) = self.sess.run(
             [self.detection_boxes, self.detection_scores, self.detection_classes, self.num_detections],
             feed_dict={self.image_tensor: frame_expanded})
-
-
-
-
 
         # Draw the results of the detection (aka 'visulaize the results')
         vis_util.visualize_boxes_and_labels_on_image_array(
