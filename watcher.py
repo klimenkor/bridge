@@ -16,7 +16,7 @@ import ikncu
 
 class Detector:
     PATH_TO_CKPT = os.path.join(ikncu.path_to_model,'frozen_inference_graph.pb')
-    PATH_TO_LABELS = os.path.join(ikncu.path_to_data,'data','mscoco_label_map.pbtxt')
+    PATH_TO_LABELS = os.path.join(ikncu.path_to_data,'mscoco_label_map.pbtxt')
     NUM_CLASSES = 90
 
     def __init__(self):
