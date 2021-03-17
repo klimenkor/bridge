@@ -178,7 +178,7 @@ class Splitter:
                         print("    saving original to %s" % (original_frame_file_path))
                         print("    saving processed to %s" % (processed_frame_file_path))
                         cv2.imwrite(original_frame_file_path, frame)
-                        #cv2.imwrite(processed_frame_file_path, processed_frame)
+                        cv2.imwrite(processed_frame_file_path, processed_frame)
                         #S3.Upload(original_frame_file_path,original_frame_file)
                         S3.Upload(processed_frame_file_path,processed_frame_file)
 
