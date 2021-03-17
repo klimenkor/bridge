@@ -11,9 +11,33 @@ import numpy as np
 import tensorflow as tf
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
+import logging
+import boto3
+from botocore.exceptions import ClientError
 
 import ikncu
 
+class S3:
+
+    @staticmethod
+    def Upload(self, file, object_name):
+
+        """Upload a file to an S3 bucket
+
+        :param file_name: File to upload
+        :param bucket: Bucket to upload to
+        :param object_name: S3 object name. If not specified then file_name is used
+        :return: True if file was uploaded, else False
+        """
+
+        s3_client = boto3.client('s3')
+        try:
+            response = s3_client.upload_file(file, ikncu.s3_backet_frames, object_name)
+        except ClientError as e:
+            logging.error(e)
+            return False
+        return True
+ 
 class Detector:
     PATH_TO_CKPT = os.path.join(ikncu.path_to_model,'frozen_inference_graph.pb')
     PATH_TO_LABELS = os.path.join(ikncu.path_to_data,'mscoco_label_map.pbtxt')
@@ -141,18 +165,22 @@ class Splitter:
                     break
 
                 if count % fps == 0:
-                    original_frame_file = "%s-%#05d.jpg" % (os.path.join(ikncu.path_to_frames, file.split(sep, 1)[0]), count + 1)
-                    processed_frame_file = "%s-%#05d-processed.jpg" % (os.path.join(ikncu.path_to_frames, file.split(sep, 1)[0]), count + 1)
+                    original_frame_file = "%s-%#05d.jpg" % (file.split(sep, 1)[0], count + 1)
+                    processed_frame_file = "%s-%#05d-processed.jpg" % (file.split(sep, 1)[0], count + 1)
+
+                    original_frame_file_path = os.path.join(ikncu.path_to_frames, original_frame_file)
+                    processed_frame_file_path = os.path.join(ikncu.path_to_frames, processed_frame_file)
 
                     ### detect a person
                     processed_frame = detector.process(frame)
 
-
                     if processed_frame is not None:
-                        print("    saving original to %s" % (original_frame_file))
-                        print("    saving processed to %s" % (processed_frame_file))
-                        cv2.imwrite(original_frame_file, frame)
-                        cv2.imwrite(processed_frame_file, processed_frame)
+                        print("    saving original to %s" % (original_frame_file_path))
+                        print("    saving processed to %s" % (processed_frame_file_path))
+                        cv2.imwrite(original_frame_file_path, frame)
+                        cv2.imwrite(processed_frame_file_path, processed_frame)
+                        S3.Upload(original_frame_file_path,original_frame_file)
+                        S3.Upload(processed_frame_file_path,processed_frame_file)
 
                 count = count + 1
 
