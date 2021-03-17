@@ -6,6 +6,7 @@ path_to_frames = "/home/nvr/ftp/frames"
 path_to_archive = "/home/nvr/ftp/archive"
 path_to_model = "/home/pi/bridge/ssdlite_mobilenet_v2_coco_2018_05_09"
 path_to_data = "/home/pi/bridge/data"
+s3_backet_frames = "ikncu-frames"
 
 # dev
 
