@@ -20,7 +20,7 @@ import ikncu
 class S3:
 
     @staticmethod
-    def Upload(self, file, object_name):
+    def Upload(file, object_name):
 
         """Upload a file to an S3 bucket
 
