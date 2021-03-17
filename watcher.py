@@ -74,7 +74,7 @@ class Detector:
 
 
     def process(self,frame):
-        frame = cv2.resize(frame, (0, 0), fx=0.2, fy=0.2)
+        frame = cv2.resize(frame, (0, 0), fx=0.3, fy=0.3)
         frame.setflags(write=1)
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         frame_expanded = np.expand_dims(frame_rgb, axis=0)
@@ -178,8 +178,8 @@ class Splitter:
                         print("    saving original to %s" % (original_frame_file_path))
                         print("    saving processed to %s" % (processed_frame_file_path))
                         cv2.imwrite(original_frame_file_path, frame)
-                        cv2.imwrite(processed_frame_file_path, processed_frame)
-                        S3.Upload(original_frame_file_path,original_frame_file)
+                        #cv2.imwrite(processed_frame_file_path, processed_frame)
+                        #S3.Upload(original_frame_file_path,original_frame_file)
                         S3.Upload(processed_frame_file_path,processed_frame_file)
 
                 count = count + 1
@@ -195,14 +195,14 @@ class Splitter:
             print("[processVideos] Unexpected error:", sys.exc_info()[0])
             processes.remove(path) 
             raise    
-            #remove(path)
+            remove(path)
 
         try:
             rename(path, os.path.join(ikncu.path_to_archive, file))
         except:
             print("Warning: file already exists")
          
-        #processes.remove(path)    
+        processes.remove(path)    
         return True
 
 class Handler(FileSystemEventHandler):
